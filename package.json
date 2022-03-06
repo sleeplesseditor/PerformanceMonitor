@@ -1,0 +1,23 @@
+{
+  "name": "performanceMonitor",
+  "version": "1.0.0",
+  "description": "A demonstration of the use of Socket.io with React as a CPU performance monitor app, built as part of Robert Bunch's [Udemy course](http://www.udemy.com/course/socketio-with-websockets-the-details).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sleeplesseditor/PerformanceMonitor.git"
+  },
+  "keywords": [],
+  "author": "Josh Bryson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sleeplesseditor/PerformanceMonitor/issues"
+  },
+  "homepage": "https://github.com/sleeplesseditor/PerformanceMonitor#readme",
+  "dependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

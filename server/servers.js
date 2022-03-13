@@ -1,6 +1,7 @@
 //See https://github.com/elad/node-cluster-socket.io
 
 const express = require('express');
+const cors = require('cors');
 const cluster = require('cluster');
 const net = require('net');
 const socketio = require('socket.io');
@@ -43,9 +44,14 @@ if (cluster.isMaster) {
     console.log(`Master listening on port ${port}`);
 } else {
     let app = express();
+	app.use(cors);
 
     const server = app.listen(0, 'localhost');
-	const io = socketio(server);
+	const io = socketio(server, {
+		cors: {
+		  origin: '*',
+		},
+	  });
 
 	io.adapter(ioRedis({ host: 'localhost', port: 6379 }));
     io.on('connection', function(socket) {

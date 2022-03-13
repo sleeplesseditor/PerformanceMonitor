@@ -1,6 +1,6 @@
 const os = require('os');
 const io = require('socket.io-client');
-let socket = ('http://127.0.0.1:8181');
+let socket = io('http://127.0.0.1:8181');
 
 socket.on('connect', () => {
     const nI = os.networkInterfaces();
@@ -52,6 +52,7 @@ function performanceData() {
         const numCores = cpus.length;
         
         const cpuLoad = await getCpuLoad();
+        const isActive = true;
         resolve({
             freeMem,
             totalMem,
@@ -62,7 +63,8 @@ function performanceData() {
             cpuModel,
             cpuSpeed,
             numCores,
-            cpuLoad
+            cpuLoad,
+            isActive
         })
     })
 }

@@ -10,10 +10,25 @@ function socketMain(io, socket) {
         if(key === '5765asdad') {
             socket.join('clients')
         } else if (key === 'ui12312asda') {
-            socket.join('ui')
+            socket.join('ui');
+            Machine.find({}, (err, docs) => {
+                docs.forEach((aMachine) => {
+                    aMachine.isActive = false;
+                    io.to('ui').emit('data', aMachine);
+                });
+            });
         } else {
             socket.disconnect(true);
         }
+    });
+
+    socket.on('disconnect', () => {
+        Machine.find({ macA: macA}, (err, docs) => {
+            if(docs.length > 0) {
+                docs[0].isActive = false;
+                io.to('ui').emit('data', docs[0]);
+            }
+        })
     });
 
     socket.on('initPerfData', async (data) => {

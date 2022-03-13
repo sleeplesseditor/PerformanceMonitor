@@ -7,7 +7,11 @@ socket.on('connect', () => {
     let macA;
     for(let key in nI) {
         if(!nI[key][0].internal) {
-            macA = nI[key][0].mac;
+            if(nI[key][0].mac === '00:00:00:00:00:00'){
+                macA = Math.random().toString(36).substring(2,15);
+            } else {
+                macA = nI[key][0].mac;
+            }
             break;
         }
     }
@@ -21,6 +25,7 @@ socket.on('connect', () => {
 
     let perfDataInterval = setInterval(() => {
         performanceData().then((allPerformanceData) => {
+            allPerformanceData.macA = macA;
             socket.emit('perfData', allPerformanceData);
         })
     }, 1000);

@@ -23,7 +23,7 @@ function socketMain(io, socket) {
     });
 
     socket.on('perfData', (data) => {
-
+        io.to('ui').emit('data', data)
     });
 }
 

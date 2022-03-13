@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import * as React from 'react';
 import './App.css';
 
-function App() {
+import socket from './utilities/socketConnection';
+import Widget from './components/Widget';
+
+const App = () => {
+  const [performanceData, setPerformanceData] = ({});
+
+  React.useEffect(() => {
+    socket.on('data', (data) => {
+      const currentState = ({...performanceData});
+      currentState[data.macA] = data;
+      setPerformanceData(currentState);
+    });
+  }, []);
+
+  let widgets = [];
+  const data = performanceData;
+  Object.entries(data).forEach(([key, value]) => {
+    widgets.push(<Widget key={key} data={value} />)
+  })
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {widgets}
     </div>
   );
 }
